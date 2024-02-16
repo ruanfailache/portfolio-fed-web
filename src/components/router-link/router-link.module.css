@@ -1,7 +1,0 @@
-.button {
-    @apply bg-button hover:bg-primary text-white hover:text-on-primary cursor-pointer;
-    @apply flex items-center justify-center gap-4;
-    @apply p-3 rounded-lg;
-    @apply text-sm font-semibold;
-    @apply transition duration-300;
-}

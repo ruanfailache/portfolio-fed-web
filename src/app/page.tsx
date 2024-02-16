@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { getHomeQuery } from "@/graphql/queries/home";
 
-import RouterLink from "../components/router-link";
+import RouterLink from "../components/RouterLink";
 
 export default async function Home() {
     const { profile, allSocialNetworks } = await getHomeQuery();
@@ -32,7 +32,6 @@ export default async function Home() {
                                 isExternalLink
                             />
                         ))}
-                        <RouterLink link="blog" text="Blog" />
                     </div>
                 </div>
             </div>
