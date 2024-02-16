@@ -20,10 +20,7 @@ interface ActionProps {
 
 Card.Action = function CardActions({ children, link, isExternalLink }: PropsWithChildren<ActionProps>) {
     return (
-        <Link
-            href={link}
-            passHref={isExternalLink}
-            className="flex items-center gap-2 justify-center p-6 border-t border-button text-primary text-sm font-semibold hover:underline">
+        <Link href={link} passHref={isExternalLink} className="flat-button p-6 border-t border-button">
             {children}
         </Link>
     );
