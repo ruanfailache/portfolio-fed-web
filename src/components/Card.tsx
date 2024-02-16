@@ -23,7 +23,7 @@ Card.Action = function CardActions({ children, link, isExternalLink }: PropsWith
         <Link
             href={link}
             passHref={isExternalLink}
-            className="flex items-center gap-2 justify-center p-6 border-t border-button text-primary text-sm font-semibold">
+            className="flex items-center gap-2 justify-center p-6 border-t border-button text-primary text-sm font-semibold hover:underline">
             {children}
         </Link>
     );

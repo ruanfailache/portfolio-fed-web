@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { FiChevronLeft, FiEye } from "react-icons/fi";
+import { FiEye } from "react-icons/fi";
 
 import { getProjectsQuery } from "@/graphql/queries/projects";
 
@@ -18,10 +18,7 @@ export default async function Projects() {
             </header>
 
             <main className="flex flex-col justify-start gap-6 p-6 max-w-full">
-                <GoBackButton>
-                    <FiChevronLeft size={20} />
-                    <span>Go back</span>
-                </GoBackButton>
+                <GoBackButton />
 
                 <div className="flex flex-wrap gap-6">
                     {allProjects.map((project) => (
