@@ -1,6 +1,8 @@
-import { getHomeQuery } from "@/graphql/queries/home";
-import RouterLink from "../components/router-link";
 import Image from "next/image";
+
+import { getHomeQuery } from "@/graphql/queries/home";
+
+import RouterLink from "../components/router-link";
 
 export default async function Home() {
     const { profile, allSocialNetworks } = await getHomeQuery();
