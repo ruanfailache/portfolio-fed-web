@@ -1,8 +1,13 @@
+import { Metadata } from "next";
 import Image from "next/image";
 
 import { getHomeQuery } from "@/graphql/queries/home";
 
 import RouterLink from "../components/RouterLink";
+
+export const metadata: Metadata = {
+    title: "Ruan Failache - Home",
+};
 
 export default async function Home() {
     const { profile, allSocialNetworks } = await getHomeQuery();

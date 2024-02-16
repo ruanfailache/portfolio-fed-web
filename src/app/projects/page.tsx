@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Image from "next/image";
 import { FiEye } from "react-icons/fi";
 
@@ -6,6 +7,10 @@ import { getProjectsQuery } from "@/graphql/queries/projects";
 import Card from "@/components/Card";
 import GoBackButton from "@/components/GoBackButton";
 import Tag from "@/components/Tag";
+
+export const metadata: Metadata = {
+    title: "Ruan Failache - Projects",
+};
 
 export default async function Projects() {
     const { profile, allProjects } = await getProjectsQuery();
