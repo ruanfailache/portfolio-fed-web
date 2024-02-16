@@ -16,6 +16,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
     return (
         <html lang="en">
+            <head>
+                <title>Ruan Failache</title>
+            </head>
             <body className={`${inter.className} overflow-x-hidden`}>
                 <Suspense fallback={<Loading />}>{children}</Suspense>
             </body>
