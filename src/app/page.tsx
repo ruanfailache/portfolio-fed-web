@@ -6,8 +6,8 @@ export default async function Home() {
     const { profile, allSocialNetworks } = await getHomeQuery();
 
     return (
-        <main className="bg-screen h-svh w-svw grid place-items-center">
-            <div className="bg-surface p-10 rounded-xl">
+        <main className="h-full p-6 grid place-items-center">
+            <div className="w-full sm:w-fit bg-surface p-10 rounded-xl">
                 <div className="flex flex-col gap-6 items-center">
                     <div className="relative w-28 h-28 rounded-full overflow-hidden">
                         <Image className="object-cover" src={profile.image.responsiveImage.src} alt="Myself" fill />
@@ -20,8 +20,8 @@ export default async function Home() {
 
                     <p className="text-sm text-white">{profile.about}</p>
 
-                    <div className="w-[300px] flex flex-col gap-4">
-                        <RouterLink link="" text="My projects" />
+                    <div className="w-full sm:w-[300px] flex flex-col gap-4">
+                        <RouterLink link="projects" text="My projects" />
                         {allSocialNetworks.map((socialNetwork) => (
                             <RouterLink
                                 key={socialNetwork.description}
@@ -30,6 +30,7 @@ export default async function Home() {
                                 isExternalLink
                             />
                         ))}
+                        <RouterLink link="blog" text="Blog" />
                     </div>
                 </div>
             </div>

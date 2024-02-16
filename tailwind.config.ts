@@ -1,4 +1,4 @@
-import type {Config} from "tailwindcss";
+import type { Config } from "tailwindcss";
 
 const config: Config = {
     content: [
@@ -10,14 +10,11 @@ const config: Config = {
         extend: {
             colors: {
                 primary: "#C4F82A",
-                'on-primary': "#333333"
-            },
-            backgroundColor: {
-                primary: "#C4F82A",
                 screen: "#141414",
                 surface: "#1F1F1F",
                 button: "#333333",
-            }
+                "on-primary": "#333333",
+            },
         },
     },
     plugins: [],
