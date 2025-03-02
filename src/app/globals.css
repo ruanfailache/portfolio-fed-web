@@ -7,7 +7,23 @@ body {
 }
 
 @layer components {
-    .flat-button {
+    h1 {
+        @apply text-4xl font-bold text-black;
+    }
+
+    h2 {
+        @apply text-3xl font-medium text-black;
+    }
+
+    strong {
+        @apply font-medium;
+    }
+
+    .button {
+        @apply flex items-center gap-2 justify-center text-sm font-semibold text-black bg-primary rounded-md px-4 py-2;
+    }
+
+    .button__flat {
         @apply flex items-center gap-2 justify-center text-sm font-semibold text-primary hover:underline;
     }
 }

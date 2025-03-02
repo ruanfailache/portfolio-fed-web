@@ -5,7 +5,6 @@ import { FiEye } from "react-icons/fi";
 import { getProjectsQuery } from "@/graphql/queries/projects";
 
 import Card from "@/components/Card";
-import GoBackButton from "@/components/GoBackButton";
 import Tag from "@/components/Tag";
 
 export const metadata: Metadata = {
@@ -13,18 +12,15 @@ export const metadata: Metadata = {
 };
 
 export default async function Projects() {
-    const { profile, allProjects } = await getProjectsQuery();
+    const { allProjects } = await getProjectsQuery();
 
     return (
         <>
-            <header className="bg-surface p-6">
-                <h1 className="text-2xl font-semibold text-white">{profile.title}</h1>
-                <span className="text-sm font-medium text-primary">My projects</span>
+            <header className="p-4">
+                <h1 className="text-2xl font-semibold text-white">My projects</h1>
             </header>
 
             <main className="flex flex-col justify-start gap-6 p-6 max-w-full">
-                <GoBackButton />
-
                 <div className="flex flex-wrap gap-6">
                     {allProjects.map((project) => (
                         <Card key={project.id}>

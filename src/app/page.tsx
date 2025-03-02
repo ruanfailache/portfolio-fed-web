@@ -1,45 +1,86 @@
 import { Metadata } from "next";
 import Image from "next/image";
+import { FaAngular, FaJava, FaNodeJs, FaReact } from "react-icons/fa";
+import { FaCode } from "react-icons/fa6";
+import { FiDownload } from "react-icons/fi";
 
 import { getHomeQuery } from "@/graphql/queries/home";
 
-import RouterLink from "../components/RouterLink";
+import { IconSize } from "@/components/IconButton";
 
 export const metadata: Metadata = {
     title: "Ruan Failache - Home",
 };
 
+const content = {
+    banner: {
+        title: "👋 Hi there, I'm Ruan.",
+        description: "Senior Full Stack Developer",
+        body: `With expertise in building web applications, mobile applications, and APIs. I'm always looking for new challenges and opportunities to learn and grow. I'm currently working as a software engineer at CI&T and offer services as a consultant and developer.`,
+        experience: `+3 years of experience developing software.`,
+    },
+};
+
+const mainSkills = [
+    { name: "Java", icon: FaJava },
+    { name: "Angular", icon: FaAngular },
+    { name: "React", icon: FaReact },
+    { name: "Node", icon: FaNodeJs },
+];
+
 export default async function Home() {
-    const { profile, allSocialNetworks } = await getHomeQuery();
+    const { profile } = await getHomeQuery();
 
     return (
-        <main className="h-full p-6 grid place-items-center">
-            <div className="w-full sm:w-fit bg-surface p-10 rounded-xl">
-                <div className="flex flex-col gap-6 items-center">
-                    <div className="relative w-28 h-28 rounded-full overflow-hidden">
-                        <Image className="object-cover" src={profile.image.responsiveImage.src} alt="Myself" fill />
-                    </div>
+        <div className="flex flex-col gap-4 lg:gap-8 container m-auto p-4 lg:py-8">
+            <div className="flex flex-col lg:flex-row-reverse items-center justify-center lg:justify-stretch gap-8">
+                <HomeBannerImage profileImageSrc={profile.image.responsiveImage.src} />
+                <HomeBannerContent />
+            </div>
+        </div>
+    );
+}
 
-                    <div className="text-center">
-                        <h1 className="text-2xl font-semibold text-white">{profile.title}</h1>
-                        <span className="text-sm font-medium text-primary">{profile.location}</span>
-                    </div>
+function HomeBannerContent() {
+    return (
+        <div className="flex-1 text-white">
+            <strong className="block mb-2">{content.banner.title}</strong>
+            <h1 className="text-primary">{content.banner.description}</h1>
+            <p className="block my-4">{content.banner.body}</p>
+            <button className="button">
+                Download my CV
+                <FiDownload />
+            </button>
+            <div className="flex flex-col gap-4 mt-8">
+                <strong>{content.banner.experience}</strong>
+                <ul className="flex items-end gap-4">
+                    {mainSkills.map((skill) => (
+                        <li key={skill.name} className="flex items-center gap-2 p-2 border border-button rounded">
+                            <skill.icon size={IconSize.LG} />
+                        </li>
+                    ))}
+                    <li className="text-button">...and more</li>
+                </ul>
+            </div>
+        </div>
+    );
+}
 
-                    <p className="text-sm text-white">{profile.about}</p>
+interface HomeBannerImageProps {
+    profileImageSrc: string;
+}
 
-                    <div className="w-full sm:w-[300px] flex flex-col gap-4">
-                        <RouterLink link="projects" text="My projects" />
-                        {allSocialNetworks.map((socialNetwork) => (
-                            <RouterLink
-                                key={socialNetwork.description}
-                                link={socialNetwork.link}
-                                text={socialNetwork.description}
-                                isExternalLink
-                            />
-                        ))}
-                    </div>
+function HomeBannerImage(props: HomeBannerImageProps) {
+    return (
+        <div className="flex-1 place-items-center">
+            <div className="relative">
+                <div className="relative w-48 h-48 lg:w-80 lg:h-80 rounded-full overflow-hidden">
+                    <Image className="object-cover" src={props.profileImageSrc} alt="Myself" fill />
+                </div>
+                <div className="absolute bottom-1 right-1 lg:bottom-8 lg:right-8 bg-primary p-2 rounded-full">
+                    <FaCode size={IconSize.XL} color="black" />
                 </div>
             </div>
-        </main>
+        </div>
     );
 }

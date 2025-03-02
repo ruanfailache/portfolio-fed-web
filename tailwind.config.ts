@@ -10,9 +10,9 @@ const config: Config = {
         extend: {
             colors: {
                 primary: "#C4F82A",
-                screen: "#141414",
-                surface: "#1F1F1F",
-                button: "#333333",
+                screen: "#1C1C1F",
+                surface: "#2C2C2F",
+                button: "#4C4C4F",
                 "on-primary": "#333333",
             },
         },

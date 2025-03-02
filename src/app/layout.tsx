@@ -5,6 +5,7 @@ import { PropsWithChildren, Suspense } from "react";
 import Loading from "./loading";
 
 import "./globals.css";
+import SideBar from "@/components/SideBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,8 +17,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
     return (
         <html lang="en">
-            <body className={`${inter.className} overflow-x-hidden`}>
-                <Suspense fallback={<Loading />}>{children}</Suspense>
+            <body className={`${inter.className} overflow-x-hidden flex`}>
+                <SideBar />
+                <Suspense fallback={<Loading />}>
+                    <main className="flex-1 h-full w-full overflow-x-hidden">{children}</main>
+                </Suspense>
             </body>
         </html>
     );
