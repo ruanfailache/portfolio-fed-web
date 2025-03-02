@@ -15,12 +15,12 @@ export default async function Projects() {
     const { allProjects } = await getProjectsQuery();
 
     return (
-        <>
-            <header className="p-4">
+        <div className="flex flex-col gap-4">
+            <header>
                 <h1 className="text-2xl font-semibold text-white">My projects</h1>
             </header>
 
-            <main className="flex flex-col justify-start gap-6 p-6 max-w-full">
+            <section className="flex flex-col justify-start gap-6 max-w-full">
                 <div className="flex flex-wrap gap-6">
                     {allProjects.map((project) => (
                         <Card key={project.id}>
@@ -47,7 +47,7 @@ export default async function Projects() {
                         </Card>
                     ))}
                 </div>
-            </main>
-        </>
+            </section>
+        </div>
     );
 }
