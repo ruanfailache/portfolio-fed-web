@@ -1,6 +1,8 @@
 import { IconSize } from "@/components/IconButton";
+import { HomeCurriculumQuery, HomePageQuery } from "@/graphql/interfaces/HomePageQuery";
 import { FaAngular, FaJava, FaNodeJs, FaReact } from "react-icons/fa";
 import { FiDownload } from "react-icons/fi";
+import HomeDownloadCurriculumButton from "./HomeDownloadCurriculumButton";
 
 const content = {
     banner: {
@@ -18,16 +20,17 @@ const mainSkills = [
     { name: "Node", icon: FaNodeJs },
 ];
 
-export function HomeBannerContent() {
+interface HomeBannerContentProps {
+    curriculum: HomeCurriculumQuery;
+}
+
+export function HomeBannerContent({ curriculum }: HomeBannerContentProps) {
     return (
         <div className="flex-1 text-white">
             <strong className="block mb-2">{content.banner.title}</strong>
             <h1 className="text-primary">{content.banner.description}</h1>
             <p className="block my-4">{content.banner.body}</p>
-            <button className="button">
-                Download my CV
-                <FiDownload />
-            </button>
+            <HomeDownloadCurriculumButton curriculum={curriculum} />
             <div className="flex flex-col gap-4 mt-8">
                 <strong>{content.banner.experience}</strong>
                 <ul className="flex items-end gap-4">

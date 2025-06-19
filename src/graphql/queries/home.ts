@@ -8,12 +8,21 @@ export function getHomeQuery() {
                 title
                 location
                 about
+
                 image {
                   responsiveImage(imgixParams: {auto: [compress, format]}) {
                     src
                   }
                 }
+
+                curriculum {
+                    id
+                    filename
+                    mimeType
+                    url
+                }
             }
+
             allSocialNetworks {
                 description
                 link
@@ -21,4 +30,3 @@ export function getHomeQuery() {
         }
     `);
 }
-

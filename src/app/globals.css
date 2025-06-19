@@ -20,7 +20,7 @@ body {
     }
 
     .button {
-        @apply flex items-center gap-2 justify-center text-sm font-semibold text-black bg-primary rounded-md px-4 py-2;
+        @apply w-fit flex items-center gap-2 justify-center text-sm font-semibold text-black bg-primary rounded-md px-4 py-2;
     }
 
     .button__flat {
