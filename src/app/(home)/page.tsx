@@ -13,9 +13,11 @@ export default async function Home() {
     const { profile } = await getHomeQuery();
 
     return (
-        <div className="flex flex-col lg:flex-row-reverse items-center justify-center lg:justify-stretch gap-8">
-            <HomeBannerImage profileImageSrc={profile.image.responsiveImage.src} />
-            <HomeBannerContent />
-        </div>
+        <main className="flex-1 h-full w-full overflow-x-hidden">
+            <div className="container m-auto p-4 lg:py-8 flex flex-col lg:flex-row-reverse items-center justify-center lg:justify-stretch gap-8">
+                <HomeBannerImage profileImageSrc={profile.image.responsiveImage.src} />
+                <HomeBannerContent />
+            </div>
+        </main>
     );
 }

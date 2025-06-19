@@ -19,11 +19,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <html lang="en">
             <body className={`${inter.className} overflow-x-hidden flex flex-col lg:flex-row`}>
                 <SideBar />
-                <Suspense fallback={<Loading />}>
-                    <main className="flex-1 h-full w-full overflow-x-hidden">
-                        <div className="container m-auto p-4 lg:py-8">{children}</div>
-                    </main>
-                </Suspense>
+                <Suspense fallback={<Loading />}>{children}</Suspense>
             </body>
         </html>
     );
