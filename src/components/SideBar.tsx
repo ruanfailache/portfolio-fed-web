@@ -1,11 +1,10 @@
-import { FiFolder, FiGithub, FiLinkedin, FiMail, FiUser } from "react-icons/fi";
+import { FiFolder, FiGithub, FiLinkedin, FiUser } from "react-icons/fi";
 
 import IconButton, { IconSize } from "@/components/IconButton";
 
 const sections = [
     { icon: FiUser, label: "About me", href: "/" },
     { icon: FiFolder, label: "Projects", href: "/projects" },
-    { icon: FiMail, label: "Contact me", href: "/" },
 ];
 
 const socialNetworks = [

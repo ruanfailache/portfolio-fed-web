@@ -1,24 +1,8 @@
 import { cmsRequest } from "@/graphql/utils";
-
-interface HomeQuery {
-    profile: {
-        title: string;
-        location: string;
-        about: string;
-        image: {
-            responsiveImage: {
-                src: string;
-            };
-        };
-    };
-    allSocialNetworks: Array<{
-        description: string;
-        link: string;
-    }>;
-}
+import { HomePageQuery } from "../interfaces/HomePageQuery";
 
 export function getHomeQuery() {
-    return cmsRequest<HomeQuery>(`
+    return cmsRequest<HomePageQuery>(`
         query {
             profile {
                 title
@@ -37,3 +21,4 @@ export function getHomeQuery() {
         }
     `);
 }
+
