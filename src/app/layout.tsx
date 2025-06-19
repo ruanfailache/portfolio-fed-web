@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
     return (
         <html lang="en">
-            <body className={`${inter.className} overflow-x-hidden flex`}>
+            <body className={`${inter.className} overflow-x-hidden flex flex-col lg:flex-row`}>
                 <SideBar />
                 <Suspense fallback={<Loading />}>
                     <main className="flex-1 h-full w-full overflow-x-hidden">

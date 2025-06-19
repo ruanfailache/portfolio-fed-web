@@ -14,9 +14,9 @@ const socialNetworks = [
 
 export default function SideBar() {
     return (
-        <aside className="flex flex-col justify-between p-2 bg-surface">
+        <aside className="flex lg:flex-col justify-between p-2 bg-surface">
             <nav>
-                <ul className="flex flex-col gap-2">
+                <ul className="flex lg:flex-col gap-2">
                     {sections.map((section) => (
                         <IconButton.InternalLink
                             key={section.label}
@@ -28,7 +28,7 @@ export default function SideBar() {
                 </ul>
             </nav>
             <nav>
-                <ul className="flex flex-col gap-2">
+                <ul className="flex lg:flex-col gap-2">
                     {socialNetworks.map((socialNetwork) => (
                         <IconButton.ExternalLink
                             key={socialNetwork.label}
