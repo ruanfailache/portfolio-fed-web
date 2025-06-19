@@ -1,6 +1,3 @@
-import { NextRequest } from "next/server";
-import https from "https";
-
 export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
 
@@ -21,27 +18,27 @@ export async function GET(req: NextRequest) {
         });
     }
 
-    return new Promise((resolve, reject) => {
-        https
-            .get(url, (fileRes) => {
-                const headers = new Headers();
-                headers.set("Content-Disposition", `attachment; filename="${filename}"`);
-                headers.set("Content-Type", fileRes.headers["content-type"] || "application/pdf");
+    try {
+        const response = await fetch(url);
 
-                resolve(
-                    new Response(fileRes as any, {
-                        status: 200,
-                        headers,
-                    }),
-                );
-            })
-            .on("error", () => {
-                reject(
-                    new Response(JSON.stringify({ error: "Error on PDF's download." }), {
-                        status: 500,
-                        headers: { "Content-Type": "application/json" },
-                    }),
-                );
+        if (!response.ok || !response.body) {
+            return new Response(JSON.stringify({ error: "Failed to fetch file." }), {
+                status: 500,
+                headers: { "Content-Type": "application/json" },
             });
-    });
+        }
+
+        return new Response(response.body, {
+            status: 200,
+            headers: {
+                "Content-Disposition": `attachment; filename="${filename}"`,
+                "Content-Type": response.headers.get("content-type") || "application/pdf",
+            },
+        });
+    } catch (err) {
+        return new Response(JSON.stringify({ error: "Error downloading file." }), {
+            status: 500,
+            headers: { "Content-Type": "application/json" },
+        });
+    }
 }
