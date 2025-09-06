@@ -22,9 +22,10 @@
             }
         ],
         "paths": {
-            "@/*": [
-                "./src/*"
-            ]
+            "@/*": ["./src/*"],
+            "@core/*": ["./src/core/*"],
+            "@entrypoint/*": ["./src/entrypoint/*"],
+            "@ui/*": ["./src/ui/*"]
         }
     },
     "include": [
