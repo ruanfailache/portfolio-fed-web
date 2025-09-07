@@ -14,7 +14,7 @@ const socialNetworks = [
 
 export default function SideBar() {
     return (
-        <aside className="flex lg:flex-col justify-between p-2 bg-surface h-screen lg:h-screen">
+        <aside className="flex lg:flex-col justify-between p-2 bg-surface lg:h-screen">
             <nav>
                 <ul className="flex lg:flex-col gap-2">
                     {sections.map((section) => (
