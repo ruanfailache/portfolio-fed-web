@@ -28,7 +28,7 @@ function ExternalLink(props: IconLinkProps) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={props.label}
-            className="box-border p-2 cursor-pointer transition duration-300 rounded bg-button text-white hover:bg-primary hover:text-black">
+            className="box-border p-2 cursor-pointer transition duration-300 rounded bg-theme-button text-theme-button hover:bg-primary hover:text-on-primary">
             <props.icon size={props.size ?? DEFAULT_ICON_SIZE} aria-hidden="true" color="currentColor" />
         </Link>
     );
@@ -39,7 +39,7 @@ function InternalLink(props: IconLinkProps) {
         <Link
             href={props.href}
             aria-label={props.label}
-            className="box-border p-2 cursor-pointer transition duration-300 rounded bg-button text-white hover:bg-primary hover:text-black">
+            className="box-border p-2 cursor-pointer transition duration-300 rounded bg-theme-button text-theme-button hover:bg-primary hover:text-on-primary">
             <props.icon size={props.size ?? DEFAULT_ICON_SIZE} aria-hidden="true" color="currentColor" />
         </Link>
     );

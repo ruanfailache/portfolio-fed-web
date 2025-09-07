@@ -1,162 +1,65 @@
 import { render, screen } from '@testing-library/react';
 import HomeScreen from '@ui/screens/HomeScreen';
 
-jest.mock('@entrypoint/cms/profile', () => ({
-  getProfile: jest.fn()
+jest.mock('@ui/organisms/HomeBannerSection', () => ({
+  HomeBannerSection: function MockHomeBannerSection() {
+    return <section data-testid="home-banner-section">Home Banner Section</section>;
+  }
 }));
 
-jest.mock('@ui/molecules/HomeBannerContent', () => {
-  return function MockHomeBannerContent({ 
-    curriculum, 
-    title, 
-    description, 
-    body, 
-    experience 
-  }: {
-    curriculum: any;
-    title: string;
-    description: string;
-    body: string;
-    experience: string;
-  }) {
-    return (
-      <div data-testid="home-banner-content">
-        <h1>{title}</h1>
-        <p>{description}</p>
-        <p>{body}</p>
-        <p>{experience}</p>
-        <span data-testid="curriculum-filename">{curriculum.filename}</span>
-      </div>
-    );
-  };
-});
-
-jest.mock('@ui/molecules/HomeBannerImage', () => {
-  return function MockHomeBannerImage({ profileImageSrc }: { profileImageSrc: string }) {
-    return (
-      <div data-testid="home-banner-image">
-        <img src={profileImageSrc} alt="Profile" />
-      </div>
-    );
-  };
-});
+jest.mock('@ui/organisms/ProfessionalExperienceSection', () => ({
+  ProfessionalExperienceSection: function MockProfessionalExperienceSection() {
+    return <div data-testid="professional-experience-section">Professional Experience</div>;
+  }
+}));
 
 describe('HomeScreen', () => {
-  const mockGetProfile = require('@entrypoint/cms/profile').getProfile;
-
-  const mockProfile = {
-    id: 'profile',
-    title: 'Software Developer',
-    location: 'São Paulo, Brazil',
-    about: 'Passionate developer with 5+ years of experience',
-    image: {
-      src: 'https://example.com/profile.jpg',
-      alt: 'Software Developer'
-    },
-    curriculum: {
-      id: 'curriculum-123',
-      filename: 'curriculum-ruan.pdf',
-      mimeType: 'application/pdf',
-      url: 'https://example.com/curriculum.pdf'
-    },
-    banner: {
-      title: 'Software Developer',
-      description: 'Ruan Ferreira',
-      body: 'Creating amazing web experiences',
-      experience: '5+ years of experience'
-    }
-  };
-
-  beforeEach(() => {
-    mockGetProfile.mockResolvedValue(mockProfile);
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
-  describe('Given a successful profile fetch', () => {
-    describe('When rendering the HomeScreen', () => {
-      it('Then should render the main container', async () => {
-        const component = await HomeScreen();
-        render(component);
+  describe('Given the HomeScreen component', () => {
+    describe('When rendering', () => {
+      it('Then should render main container with correct classes', () => {
+        render(<HomeScreen />);
         
-        const container = screen.getByRole('main').parentElement;
-        expect(container).toHaveClass('container', 'm-auto', 'p-4', 'lg:py-8', 'flex', 'flex-col', 'lg:flex-row-reverse', 'items-center', 'justify-center', 'lg:justify-stretch', 'gap-8');
+        const container = screen.getByText('Home Banner Section').closest('div');
+        expect(container).toHaveClass('container', 'm-auto', 'p-4', 'lg:py-8', 'space-y-8', 'lg:space-y-16');
       });
 
-      it('Then should render HomeBannerImage with correct props', async () => {
-        const component = await HomeScreen();
-        render(component);
+      it('Then should render HomeBannerSection', () => {
+        render(<HomeScreen />);
         
-        const bannerImage = screen.getByTestId('home-banner-image');
-        expect(bannerImage).toBeInTheDocument();
-        
-        const image = bannerImage.querySelector('img');
-        expect(image).toHaveAttribute('src', mockProfile.image.src);
-        expect(image).toHaveAttribute('alt', 'Profile');
+        const bannerSection = screen.getByTestId('home-banner-section');
+        expect(bannerSection).toBeInTheDocument();
+        expect(bannerSection).toHaveTextContent('Home Banner Section');
       });
 
-      it('Then should render HomeBannerContent with correct props', async () => {
-        const component = await HomeScreen();
-        render(component);
+      it('Then should render ProfessionalExperienceSection', () => {
+        render(<HomeScreen />);
         
-        const bannerContent = screen.getByTestId('home-banner-content');
-        expect(bannerContent).toBeInTheDocument();
-        
-        expect(screen.getByText(mockProfile.banner.title)).toBeInTheDocument();
-        expect(screen.getByText(mockProfile.banner.description)).toBeInTheDocument();
-        expect(screen.getByText(mockProfile.banner.body)).toBeInTheDocument();
-        expect(screen.getByText(mockProfile.banner.experience)).toBeInTheDocument();
-        expect(screen.getByTestId('curriculum-filename')).toHaveTextContent(mockProfile.curriculum.filename);
+        const experienceSection = screen.getByTestId('professional-experience-section');
+        expect(experienceSection).toBeInTheDocument();
+        expect(experienceSection).toHaveTextContent('Professional Experience');
       });
 
-      it('Then should call getProfile function', async () => {
-        await HomeScreen();
+      it('Then should render both sections in correct order', () => {
+        render(<HomeScreen />);
         
-        expect(mockGetProfile).toHaveBeenCalledTimes(1);
-      });
-    });
-  });
-
-  describe('Given different profile data', () => {
-    describe('When rendering with different profile', () => {
-      it('Then should render updated content', async () => {
-        const customProfile = {
-          ...mockProfile,
-          banner: {
-            title: 'Senior Developer',
-            description: 'John Doe',
-            body: 'Building scalable applications',
-            experience: '10+ years of experience'
-          },
-          curriculum: {
-            ...mockProfile.curriculum,
-            filename: 'senior-dev-cv.pdf'
-          }
-        };
-
-        mockGetProfile.mockResolvedValue(customProfile);
-
-        const component = await HomeScreen();
-        render(component);
+        const bannerSection = screen.getByTestId('home-banner-section');
+        const experienceSection = screen.getByTestId('professional-experience-section');
         
-        expect(screen.getByText('Senior Developer')).toBeInTheDocument();
-        expect(screen.getByText('John Doe')).toBeInTheDocument();
-        expect(screen.getByText('Building scalable applications')).toBeInTheDocument();
-        expect(screen.getByText('10+ years of experience')).toBeInTheDocument();
-        expect(screen.getByTestId('curriculum-filename')).toHaveTextContent('senior-dev-cv.pdf');
+        expect(bannerSection).toBeInTheDocument();
+        expect(experienceSection).toBeInTheDocument();
+        
+        // Check if banner comes before experience in DOM order
+        const container = bannerSection.closest('div');
+        const sections = container?.children;
+        expect(sections?.[0]).toBe(bannerSection);
+        expect(sections?.[1]).toBe(experienceSection);
       });
-    });
-  });
 
-  describe('Given profile fetch error', () => {
-    describe('When getProfile throws an error', () => {
-      it('Then should propagate the error', async () => {
-        const error = new Error('Failed to fetch profile');
-        mockGetProfile.mockRejectedValue(error);
-
-        await expect(HomeScreen()).rejects.toThrow('Failed to fetch profile');
+      it('Then should have proper spacing between sections', () => {
+        render(<HomeScreen />);
+        
+        const container = screen.getByText('Home Banner Section').closest('div');
+        expect(container).toHaveClass('space-y-8', 'lg:space-y-16');
       });
     });
   });

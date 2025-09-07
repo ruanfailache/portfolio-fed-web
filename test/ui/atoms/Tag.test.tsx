@@ -23,7 +23,7 @@ describe('Tag', () => {
         render(<Tag>{mockText}</Tag>);
         
         const tag = screen.getByText(mockText);
-        expect(tag).toHaveClass('text-xs', 'font-medium', 'text-white', 'leading-none');
+        expect(tag).toHaveClass('text-xs', 'font-medium', 'text-theme-primary', 'leading-none');
       });
     });
   });

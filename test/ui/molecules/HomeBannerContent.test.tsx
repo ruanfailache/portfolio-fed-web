@@ -5,10 +5,10 @@ import { Curriculum } from '@core/models/Profile';
 jest.mock('@core/hooks/useSkills', () => ({
   useSkills: () => ({
     mainSkills: [
-      { name: 'Java', icon: jest.fn() },
-      { name: 'Angular', icon: jest.fn() },
-      { name: 'React', icon: jest.fn() },
-      { name: 'Node', icon: jest.fn() }
+      { name: 'Java', icon: () => <span data-testid="java-icon">Java</span> },
+      { name: 'Angular', icon: () => <span data-testid="angular-icon">Angular</span> },
+      { name: 'React', icon: () => <span data-testid="react-icon">React</span> },
+      { name: 'Node', icon: () => <span data-testid="node-icon">Node</span> }
     ]
   })
 }));
@@ -100,7 +100,7 @@ describe('HomeBannerContent', () => {
         render(<HomeBannerContent {...mockProps} />);
         
         const container = screen.getByText(mockProps.title).closest('div');
-        expect(container).toHaveClass('flex-1', 'text-white');
+        expect(container).toHaveClass('flex-1', 'text-theme-primary');
       });
 
       it('Then should render title as strong element', () => {

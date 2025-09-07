@@ -2,21 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    /* Dark theme variables */
+    --color-screen: theme('colors.dark.screen');
+    --color-surface: theme('colors.dark.surface');
+    --color-surface-light: theme('colors.dark.surface-light');
+    --color-surface-dark: theme('colors.dark.surface-dark');
+    --color-button: theme('colors.dark.button');
+    --color-button-hover: theme('colors.dark.button-hover');
+    --color-button-active: theme('colors.dark.button-active');
+    --color-text-primary: theme('colors.dark.text-primary');
+    --color-text-secondary: theme('colors.dark.text-secondary');
+    --color-text-muted: theme('colors.dark.text-muted');
+    --color-border: theme('colors.dark.border');
+    --color-border-light: theme('colors.dark.border-light');
+    --color-border-dark: theme('colors.dark.border-dark');
+    --color-scrollbar: theme('colors.dark.scrollbar');
+    --color-scrollbar-hover: theme('colors.dark.scrollbar-hover');
+    --color-scrollbar-track: theme('colors.dark.scrollbar-track');
+}
+
+.light {
+    --color-screen: theme('colors.light.screen');
+    --color-surface: theme('colors.light.surface');
+    --color-surface-light: theme('colors.light.surface-light');
+    --color-surface-dark: theme('colors.light.surface-dark');
+    --color-button: theme('colors.light.button');
+    --color-button-hover: theme('colors.light.button-hover');
+    --color-button-active: theme('colors.light.button-active');
+    --color-text-primary: theme('colors.light.text-primary');
+    --color-text-secondary: theme('colors.light.text-secondary');
+    --color-text-muted: theme('colors.light.text-muted');
+    --color-border: theme('colors.light.border');
+    --color-border-light: theme('colors.light.border-light');
+    --color-border-dark: theme('colors.light.border-dark');
+    --color-scrollbar: theme('colors.light.scrollbar');
+    --color-scrollbar-hover: theme('colors.light.scrollbar-hover');
+    --color-scrollbar-track: theme('colors.light.scrollbar-track');
+}
+
 body {
-    @apply bg-screen h-screen w-screen;
+    @apply h-screen w-screen scrollbar-custom;
+    background-color: var(--color-screen);
 }
 
 @layer components {
     h1 {
-        @apply text-4xl font-bold text-white;
+        @apply text-4xl font-bold text-theme-primary;
     }
 
     h2 {
-        @apply text-3xl font-medium text-white;
+        @apply text-3xl font-medium text-theme-primary;
     }
 
     strong {
-        @apply font-medium text-white;
+        @apply font-medium text-theme-primary;
     }
 
     .button {
@@ -25,5 +65,45 @@ body {
 
     .button__flat {
         @apply flex items-center gap-2 justify-center text-sm font-semibold text-primary hover:underline;
+    }
+
+    /* Theme-aware utility classes */
+    .bg-theme-surface { background-color: var(--color-surface); }
+    .bg-theme-surface-light { background-color: var(--color-surface-light); }
+    .bg-theme-surface-dark { background-color: var(--color-surface-dark); }
+    .bg-theme-button { background-color: var(--color-button); }
+    .text-theme-primary { color: var(--color-text-primary); }
+    .text-theme-secondary { color: var(--color-text-secondary); }
+    .text-theme-muted { color: var(--color-text-muted); }
+    .text-theme-button { color: var(--color-text-primary); }
+    .border-theme { border-color: var(--color-border); }
+    .border-theme-light { border-color: var(--color-border-light); }
+    .border-theme-dark { border-color: var(--color-border-dark); }
+    
+    .hover\:bg-theme-button-hover:hover { background-color: var(--color-button-hover); }
+    .hover\:bg-theme-button-active:hover { background-color: var(--color-button-active); }
+}
+
+@layer utilities {
+    .scrollbar-custom {
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-scrollbar) var(--color-scrollbar-track);
+    }
+
+    .scrollbar-custom::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .scrollbar-custom::-webkit-scrollbar-track {
+        background: var(--color-scrollbar-track);
+    }
+
+    .scrollbar-custom::-webkit-scrollbar-thumb {
+        background-color: var(--color-scrollbar);
+        border-radius: 3px;
+    }
+
+    .scrollbar-custom::-webkit-scrollbar-thumb:hover {
+        background-color: var(--color-scrollbar-hover);
     }
 }

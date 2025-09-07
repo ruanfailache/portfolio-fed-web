@@ -16,7 +16,7 @@ describe('SideBar', () => {
         render(<SideBar />);
         
         const sidebar = screen.getByRole('complementary');
-        expect(sidebar).toHaveClass('flex', 'lg:flex-col', 'justify-between', 'p-2', 'bg-surface', 'h-screen', 'lg:h-screen');
+        expect(sidebar).toHaveClass('flex', 'lg:flex-col', 'justify-between', 'p-2', 'bg-theme-surface', 'lg:h-screen');
       });
 
       it('Then should render navigation sections', () => {

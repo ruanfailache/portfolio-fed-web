@@ -14,7 +14,7 @@ export function HomeBannerImage(props: HomeBannerImageProps) {
                     <Image className="object-cover" src={props.profileImageSrc} alt="Myself" fill />
                 </div>
                 <div className="absolute bottom-1 right-1 lg:bottom-8 lg:right-8 bg-primary p-2 rounded-full">
-                    <FaCode size={IconSize.XL} color="black" />
+                    <FaCode size={IconSize.XL} className="text-on-primary" />
                 </div>
             </div>
         </div>

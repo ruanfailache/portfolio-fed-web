@@ -69,7 +69,7 @@ describe('ProjectsScreen', () => {
         const component = await ProjectsScreen();
         render(component);
         
-        const container = screen.getByRole('main').parentElement;
+        const container = screen.getByText('My projects').closest('div');
         expect(container).toHaveClass('container', 'm-auto', 'p-4', 'lg:py-8', 'flex', 'flex-col', 'gap-4');
       });
 
@@ -89,7 +89,7 @@ describe('ProjectsScreen', () => {
         const component = await ProjectsScreen();
         render(component);
         
-        const section = screen.getByRole('region');
+        const section = screen.getByText('E-commerce Platform').closest('section');
         expect(section).toHaveClass('flex', 'flex-col', 'justify-start', 'gap-6', 'max-w-full');
       });
 
@@ -130,7 +130,7 @@ describe('ProjectsScreen', () => {
         const component = await ProjectsScreen();
         render(component);
         
-        const section = screen.getByRole('region');
+        const section = screen.getByText('My projects').closest('div')?.querySelector('section');
         expect(section).toBeInTheDocument();
         
         const projectCards = screen.queryAllByTestId(/project-card-/);
@@ -218,7 +218,7 @@ describe('ProjectsScreen', () => {
         const component = await ProjectsScreen();
         render(component);
         
-        const projectsContainer = screen.getByRole('region').querySelector('div');
+        const projectsContainer = screen.getByText('Project 1').closest('section')?.querySelector('div');
         expect(projectsContainer).toHaveClass('flex', 'flex-wrap', 'gap-6');
         
         const projectCards = screen.getAllByTestId(/project-card-/);

@@ -1,6 +1,7 @@
 import { FiFolder, FiGithub, FiLinkedin, FiUser } from "react-icons/fi";
 
 import IconButton, { IconSize } from "../atoms/IconButton";
+import { ThemeToggle } from "../atoms/ThemeToggle";
 
 const sections = [
     { icon: FiUser, label: "About me", href: "/" },
@@ -14,7 +15,7 @@ const socialNetworks = [
 
 export default function SideBar() {
     return (
-        <aside className="flex lg:flex-col justify-between p-2 bg-surface lg:h-screen">
+        <aside className="flex lg:flex-col justify-between p-2 bg-theme-surface lg:h-screen">
             <nav>
                 <ul className="flex lg:flex-col gap-2">
                     {sections.map((section) => (
@@ -29,6 +30,9 @@ export default function SideBar() {
             </nav>
             <nav>
                 <ul className="flex lg:flex-col gap-2">
+                    <li>
+                        <ThemeToggle size={IconSize.SM} />
+                    </li>
                     {socialNetworks.map((socialNetwork) => (
                         <IconButton.ExternalLink
                             key={socialNetwork.label}

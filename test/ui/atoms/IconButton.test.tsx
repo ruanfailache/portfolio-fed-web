@@ -40,7 +40,7 @@ describe('IconButton', () => {
           render(<IconButton.ExternalLink {...mockProps} />);
           
           const link = screen.getByRole('link');
-          expect(link).toHaveClass('box-border', 'p-2', 'cursor-pointer', 'transition', 'duration-300', 'rounded', 'bg-button', 'text-white', 'hover:bg-primary', 'hover:text-black');
+          expect(link).toHaveClass('box-border', 'p-2', 'cursor-pointer', 'transition', 'duration-300', 'rounded', 'bg-theme-button', 'text-theme-button', 'hover:bg-primary', 'hover:text-on-primary');
         });
       });
 
@@ -106,7 +106,7 @@ describe('IconButton', () => {
           render(<IconButton.InternalLink {...mockProps} />);
           
           const link = screen.getByRole('link');
-          expect(link).toHaveClass('box-border', 'p-2', 'cursor-pointer', 'transition', 'duration-300', 'rounded', 'bg-button', 'text-white', 'hover:bg-primary', 'hover:text-black');
+          expect(link).toHaveClass('box-border', 'p-2', 'cursor-pointer', 'transition', 'duration-300', 'rounded', 'bg-theme-button', 'text-theme-button', 'hover:bg-primary', 'hover:text-on-primary');
         });
       });
 

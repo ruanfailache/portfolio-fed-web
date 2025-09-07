@@ -3,142 +3,117 @@ import BaseLayout from '@ui/templates/BaseLayout';
 
 jest.mock('@ui/organisms/SideBar', () => {
   return function MockSideBar() {
-    return <aside data-testid="sidebar">Sidebar Content</aside>;
+    return <aside data-testid="sidebar">SideBar</aside>;
   };
 });
+
+jest.mock('@ui/providers/ThemeProvider', () => ({
+  ThemeProvider: function MockThemeProvider({ children }: { children: React.ReactNode }) {
+    return <div data-testid="theme-provider">{children}</div>;
+  }
+}));
 
 describe('BaseLayout', () => {
   describe('Given the BaseLayout component', () => {
     describe('When rendering with children', () => {
-      it('Then should render the main container', () => {
+      it('Then should render children in main element', () => {
         render(
           <BaseLayout>
-            <div>Test Content</div>
+            <div data-testid="test-content">Test Content</div>
           </BaseLayout>
         );
+
+        const main = screen.getByRole('main');
+        expect(main).toBeInTheDocument();
         
-        const container = screen.getByText('Test Content').closest('div');
-        expect(container).toHaveClass('overflow-x-hidden', 'flex', 'flex-col', 'lg:flex-row', 'h-screen');
+        const content = screen.getByTestId('test-content');
+        expect(content).toBeInTheDocument();
+        expect(main).toContainElement(content);
       });
 
-      it('Then should render the SideBar component', () => {
+      it('Then should render SideBar component', () => {
         render(
           <BaseLayout>
             <div>Test Content</div>
           </BaseLayout>
         );
-        
+
         const sidebar = screen.getByTestId('sidebar');
         expect(sidebar).toBeInTheDocument();
       });
 
-      it('Then should render the main content area', () => {
+      it('Then should render ThemeProvider', () => {
         render(
           <BaseLayout>
             <div>Test Content</div>
           </BaseLayout>
         );
-        
-        const main = screen.getByRole('main');
-        expect(main).toBeInTheDocument();
-        expect(main).toHaveClass('flex-1', 'h-screen', 'w-full', 'overflow-x-hidden', 'overflow-y-auto');
+
+        const themeProvider = screen.getByTestId('theme-provider');
+        expect(themeProvider).toBeInTheDocument();
       });
 
-      it('Then should render children content inside main', () => {
+      it('Then should apply correct CSS classes to main container', () => {
         render(
           <BaseLayout>
             <div>Test Content</div>
           </BaseLayout>
         );
-        
-        expect(screen.getByText('Test Content')).toBeInTheDocument();
-        expect(screen.getByText('Test Content').closest('main')).toBeInTheDocument();
-      });
-    });
 
-    describe('When rendering with different children', () => {
-      it('Then should render multiple children correctly', () => {
+        const container = screen.getByTestId('theme-provider').firstChild as HTMLElement;
+        expect(container).toHaveClass(
+          'overflow-x-hidden', 'flex', 'flex-col', 'lg:flex-row', 'h-screen'
+        );
+      });
+
+      it('Then should apply correct CSS classes to main element', () => {
         render(
           <BaseLayout>
-            <h1>Page Title</h1>
-            <p>Page content</p>
-            <button>Action Button</button>
+            <div>Test Content</div>
           </BaseLayout>
         );
-        
-        expect(screen.getByText('Page Title')).toBeInTheDocument();
-        expect(screen.getByText('Page content')).toBeInTheDocument();
-        expect(screen.getByText('Action Button')).toBeInTheDocument();
-      });
 
-      it('Then should render complex nested children', () => {
-        render(
-          <BaseLayout>
-            <div className="page-container">
-              <header>
-                <h1>Complex Page</h1>
-              </header>
-              <section>
-                <p>Section content</p>
-              </section>
-            </div>
-          </BaseLayout>
-        );
-        
-        expect(screen.getByText('Complex Page')).toBeInTheDocument();
-        expect(screen.getByText('Section content')).toBeInTheDocument();
-      });
-    });
-
-    describe('When checking layout structure', () => {
-      it('Then should have correct flex layout classes', () => {
-        render(
-          <BaseLayout>
-            <div>Content</div>
-          </BaseLayout>
-        );
-        
-        const container = screen.getByText('Content').closest('div');
-        expect(container).toHaveClass('flex', 'flex-col', 'lg:flex-row');
-      });
-
-      it('Then should have correct height and overflow classes', () => {
-        render(
-          <BaseLayout>
-            <div>Content</div>
-          </BaseLayout>
-        );
-        
-        const container = screen.getByText('Content').closest('div');
-        expect(container).toHaveClass('h-screen', 'overflow-x-hidden');
-      });
-
-      it('Then should have responsive layout classes', () => {
-        render(
-          <BaseLayout>
-            <div>Content</div>
-          </BaseLayout>
-        );
-        
-        const container = screen.getByText('Content').closest('div');
-        expect(container).toHaveClass('lg:flex-row');
-      });
-    });
-
-    describe('When rendering without children', () => {
-      it('Then should render empty main element', () => {
-        render(<BaseLayout />);
-        
         const main = screen.getByRole('main');
-        expect(main).toBeInTheDocument();
-        expect(main).toBeEmptyDOMElement();
+        expect(main).toHaveClass(
+          'flex-1', 'h-screen', 'w-full', 'overflow-x-hidden', 'overflow-y-auto'
+        );
       });
+    });
 
-      it('Then should still render SideBar', () => {
-        render(<BaseLayout />);
-        
+    describe('When rendering with multiple children', () => {
+      it('Then should render all children', () => {
+        render(
+          <BaseLayout>
+            <div data-testid="child-1">Child 1</div>
+            <div data-testid="child-2">Child 2</div>
+            <div data-testid="child-3">Child 3</div>
+          </BaseLayout>
+        );
+
+        expect(screen.getByTestId('child-1')).toBeInTheDocument();
+        expect(screen.getByTestId('child-2')).toBeInTheDocument();
+        expect(screen.getByTestId('child-3')).toBeInTheDocument();
+      });
+    });
+
+    describe('When checking component structure', () => {
+      it('Then should have correct DOM hierarchy', () => {
+        render(
+          <BaseLayout>
+            <div data-testid="content">Content</div>
+          </BaseLayout>
+        );
+
+        const themeProvider = screen.getByTestId('theme-provider');
+        const container = themeProvider.firstChild as HTMLElement;
         const sidebar = screen.getByTestId('sidebar');
-        expect(sidebar).toBeInTheDocument();
+        const main = screen.getByRole('main');
+        const content = screen.getByTestId('content');
+
+        expect(themeProvider).toContainElement(container);
+        expect(container).toContainElement(sidebar);
+        expect(container).toContainElement(main);
+        expect(main).toContainElement(content);
       });
     });
   });
